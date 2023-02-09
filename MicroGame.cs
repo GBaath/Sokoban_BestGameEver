@@ -4,12 +4,18 @@ using Microsoft.Xna.Framework.Input;
 
 namespace Sokoban_Baatht_Adam
 {
-    public class Game1 : Game
+    public class MicroGame : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Game1()
+
+        public const int CELL_SIZE = 16;
+
+        public const int GAME_WIDTH = 320;
+        public const int GAME_HEIGHT = 180;
+        public const int GAME_UPSCALE_FACTOR = 4;
+        public MicroGame()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -21,6 +27,7 @@ namespace Sokoban_Baatht_Adam
             // TODO: Add your initialization logic here
 
             base.Initialize();
+
         }
 
         protected override void LoadContent()

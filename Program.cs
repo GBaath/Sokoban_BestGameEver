@@ -1,3 +1,3 @@
 ﻿
-using var game = new Sokoban_Baatht_Adam.Game1();
+using var game = new Sokoban_Baatht_Adam.MicroGame();
 game.Run();
