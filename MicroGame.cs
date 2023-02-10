@@ -27,6 +27,8 @@ namespace Sokoban_Baatht_Adam
             // TODO: Add your initialization logic here
 
             base.Initialize();
+            _graphics.PreferredBackBufferWidth = GAME_HEIGHT * GAME_UPSCALE_FACTOR;
+            _graphics.PreferredBackBufferHeight = GAME_WIDTH * GAME_UPSCALE_FACTOR;
 
         }
 
