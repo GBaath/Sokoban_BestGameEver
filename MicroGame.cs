@@ -53,6 +53,8 @@ namespace Sokoban_Baatht_Adam
                 Exit();
 
             // TODO: Add your update logic here
+            input.Update();
+            drawPos += input.moveVector*CELL_SIZE;
             Draw(gameTime);
 
             base.Update(gameTime);
