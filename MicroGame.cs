@@ -8,6 +8,11 @@ namespace Sokoban_Baatht_Adam
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        private Input input;
+
+        private Texture2D whiteSqare;
+
+        private Vector2 drawPos = Vector2.Zero;
 
 
         public const int CELL_SIZE = 16;
@@ -25,7 +30,7 @@ namespace Sokoban_Baatht_Adam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            LoadContent();
             base.Initialize();
             _graphics.PreferredBackBufferWidth = GAME_HEIGHT * GAME_UPSCALE_FACTOR;
             _graphics.PreferredBackBufferHeight = GAME_WIDTH * GAME_UPSCALE_FACTOR;
@@ -34,7 +39,10 @@ namespace Sokoban_Baatht_Adam
 
         protected override void LoadContent()
         {
+            whiteSqare = Content.Load<Texture2D>("Sprites/whiteSquare");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            input ??= new();
 
             // TODO: use this.Content to load your game content here
         }
@@ -45,6 +53,7 @@ namespace Sokoban_Baatht_Adam
                 Exit();
 
             // TODO: Add your update logic here
+            Draw(gameTime);
 
             base.Update(gameTime);
         }
@@ -54,6 +63,9 @@ namespace Sokoban_Baatht_Adam
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             // TODO: Add your drawing code here
+            _spriteBatch.Begin();
+            _spriteBatch.Draw(whiteSqare, drawPos, Color.White);
+            _spriteBatch.End();
 
             base.Draw(gameTime);
         }
