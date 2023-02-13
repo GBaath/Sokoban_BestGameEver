@@ -102,7 +102,7 @@ namespace Sokoban_Baatht_Adam
             _spriteBatch.Begin();
             _spriteBatch.Draw(whiteSqare, playerDrawPos, Color.White);
             _spriteBatch.Draw(whiteSqare, winPos, Color.Red);
-            _spriteBatch.DrawString(font, "Score: " + score.ToString(),new Vector2(CELL_SIZE,GAME_WIDTH),Color.Black);
+            _spriteBatch.DrawString(font, "Score: " + score.ToString(),new Vector2(GAME_WIDTH,CELL_SIZE),Color.Black);
 
             _spriteBatch.End();
 
