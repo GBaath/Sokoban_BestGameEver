@@ -7,6 +7,7 @@ public class Board
     private int height;
     private object level;
 
+
     public Board()
 	{
         instance = this;
