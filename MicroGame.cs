@@ -15,10 +15,10 @@ namespace Sokoban_Baatht_Adam
         private Vector2 drawPos = Vector2.Zero;
 
 
-        public const int CELL_SIZE = 16;
+        public const int CELL_SIZE = 32;
 
-        public const int GAME_WIDTH = 320;
-        public const int GAME_HEIGHT = 180;
+        public const int GAME_WIDTH = 384;
+        public const int GAME_HEIGHT = 224;
         public const int GAME_UPSCALE_FACTOR = 4;
         public MicroGame()
         {
@@ -30,10 +30,10 @@ namespace Sokoban_Baatht_Adam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-            LoadContent();
-            base.Initialize();
             _graphics.PreferredBackBufferWidth = GAME_HEIGHT * GAME_UPSCALE_FACTOR;
             _graphics.PreferredBackBufferHeight = GAME_WIDTH * GAME_UPSCALE_FACTOR;
+            LoadContent();
+            base.Initialize();
 
         }
 
@@ -53,8 +53,10 @@ namespace Sokoban_Baatht_Adam
                 Exit();
 
             // TODO: Add your update logic here
+            InputSystem.Update();
             input.Update();
             drawPos += input.moveVector*CELL_SIZE;
+            drawPos = new(MathHelper.Clamp(drawPos.X, 0, GAME_WIDTH*2), MathHelper.Clamp(drawPos.Y, 0, GAME_HEIGHT*2));
             Draw(gameTime);
 
             base.Update(gameTime);
