@@ -13,8 +13,12 @@ namespace Sokoban_Baatht_Adam
 
         private Texture2D whiteSqare;
 
+        private SpriteFont font;
+
         private Vector2 playerDrawPos = Vector2.Zero;
         private Vector2 winPos = Vector2.Zero;
+
+        private int score = 0;
 
 
         public const int CELL_SIZE = 32;
@@ -44,9 +48,11 @@ namespace Sokoban_Baatht_Adam
         protected override void LoadContent()
         {
             whiteSqare = Content.Load<Texture2D>("Sprites/whiteSquare");
+            font = Content.Load<SpriteFont>("Font/Font1");
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             input ??= new();
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -83,6 +89,7 @@ namespace Sokoban_Baatht_Adam
 
             if (CheckSameSquare())
             {
+                score++;
                 NewWinPos(winPos);
             }
         }
@@ -95,6 +102,8 @@ namespace Sokoban_Baatht_Adam
             _spriteBatch.Begin();
             _spriteBatch.Draw(whiteSqare, playerDrawPos, Color.White);
             _spriteBatch.Draw(whiteSqare, winPos, Color.Red);
+            _spriteBatch.DrawString(font, "Score: " + score.ToString(),new Vector2(CELL_SIZE,GAME_WIDTH),Color.Black);
+
             _spriteBatch.End();
 
             base.Draw(gameTime);
