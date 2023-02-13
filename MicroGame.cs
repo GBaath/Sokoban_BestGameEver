@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System;
 
 namespace Sokoban_Baatht_Adam
 {
@@ -12,7 +13,8 @@ namespace Sokoban_Baatht_Adam
 
         private Texture2D whiteSqare;
 
-        private Vector2 drawPos = Vector2.Zero;
+        private Vector2 playerDrawPos = Vector2.Zero;
+        private Vector2 winPos = Vector2.Zero;
 
 
         public const int CELL_SIZE = 32;
@@ -30,6 +32,8 @@ namespace Sokoban_Baatht_Adam
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            NewWinPos(winPos);
+
             _graphics.PreferredBackBufferWidth = GAME_HEIGHT * GAME_UPSCALE_FACTOR;
             _graphics.PreferredBackBufferHeight = GAME_WIDTH * GAME_UPSCALE_FACTOR;
             LoadContent();
@@ -47,6 +51,21 @@ namespace Sokoban_Baatht_Adam
             // TODO: use this.Content to load your game content here
         }
 
+        private void NewWinPos(Vector2 prevWinpos)
+        {
+            do
+            {
+                Random r = new();
+                winPos = new(r.Next(0, GAME_WIDTH*2 / CELL_SIZE), r.Next(0, GAME_HEIGHT*2 / CELL_SIZE));
+                winPos *= CELL_SIZE;
+            }
+            while (winPos == prevWinpos);
+        }
+        private bool CheckSameSquare()
+        {
+            return playerDrawPos == winPos ? true : false;
+        }
+
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -55,11 +74,17 @@ namespace Sokoban_Baatht_Adam
             // TODO: Add your update logic here
             InputSystem.Update();
             input.Update();
-            drawPos += input.moveVector*CELL_SIZE;
-            drawPos = new(MathHelper.Clamp(drawPos.X, 0, GAME_WIDTH*2), MathHelper.Clamp(drawPos.Y, 0, GAME_HEIGHT*2));
+            playerDrawPos += input.moveVector*CELL_SIZE;
+            playerDrawPos = new(MathHelper.Clamp(playerDrawPos.X, 0, GAME_WIDTH*2), MathHelper.Clamp(playerDrawPos.Y, 0, GAME_HEIGHT*2));
+
             Draw(gameTime);
 
             base.Update(gameTime);
+
+            if (CheckSameSquare())
+            {
+                NewWinPos(winPos);
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -68,7 +93,8 @@ namespace Sokoban_Baatht_Adam
 
             // TODO: Add your drawing code here
             _spriteBatch.Begin();
-            _spriteBatch.Draw(whiteSqare, drawPos, Color.White);
+            _spriteBatch.Draw(whiteSqare, playerDrawPos, Color.White);
+            _spriteBatch.Draw(whiteSqare, winPos, Color.Red);
             _spriteBatch.End();
 
             base.Draw(gameTime);
