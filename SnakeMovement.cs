@@ -29,6 +29,7 @@ namespace Sokoban_Baatht_Adam
             {
                 timesMoved++;
                 currentTime -= countDuration;
+
                 return true;
             }
         }

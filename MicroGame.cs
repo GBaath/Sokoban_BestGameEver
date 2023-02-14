@@ -28,6 +28,7 @@ namespace Sokoban_Baatht_Adam
         private int score = 0;
 
         private bool gameLost = false;
+        private float countDuration = 0.15f;
 
         public const int CELL_SIZE = 32;
         public const int GAME_WIDTH = 384;
@@ -152,7 +153,13 @@ namespace Sokoban_Baatht_Adam
 
             if (CheckSameSquare())
             {
-                score++;
+                score += 1;
+
+                if (score % 5 == 0)
+                {
+                    countDuration /= 1.09f;
+                    snakeMove = new(1, countDuration, 0);
+                }
 
                 var newSnakePos = snakePositions.Last() - input.moveVector;
 
