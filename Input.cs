@@ -13,9 +13,7 @@ namespace Sokoban_Baatht_Adam
         public Vector2 moveVector;
         public void Update()
         {
-
-
-            moveVector = new(0,0);
+            //moveVector = new(0,0);
 
             if(InputSystem.IsKeyPressed(Keys.W))
             {
@@ -33,7 +31,6 @@ namespace Sokoban_Baatht_Adam
             {
                 moveVector = new(1, 0);
             }
-
         }
     }
 }
